@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { M_PLUS_1_Code } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const m_PLUS_1_Code = M_PLUS_1_Code({ subsets: ["latin"] });
 
@@ -16,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={m_PLUS_1_Code.className}>{children}</body>
+      <body className={m_PLUS_1_Code.className}>
+        <Navigation />
+        {children}
+        <Footer />
+        </body>
     </html>
   );
 }
