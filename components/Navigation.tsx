@@ -4,7 +4,7 @@ import Image from "next/image";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { IoClose } from "react-icons/io5";
 import { BiChevronRight } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const navigationMenu = [
@@ -35,6 +35,25 @@ function Navigation() {
     const mobileMenuHandler = () => {
         setNavOpen(!navOpen);
     };
+
+    //768以上になると閉じる
+    const [mobile, setMobile] = useState<{ height: number; width: number; }>({ height: 0, width: 0 });
+    useEffect(() => {
+        function handleResize() {
+            setMobile({
+                height: window.innerHeight,
+                width: window.innerWidth,
+            });
+            if(mobile.width > 768 && navOpen){
+                setNavOpen(false);
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     
     return (
         <>
