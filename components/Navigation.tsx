@@ -31,7 +31,10 @@ const navigationMenu = [
 ];
 
 function Navigation() {
-    const [navOpen, setNavOpen] = useState(true);
+    const [navOpen, setNavOpen] = useState(false);
+    const mobileMenuHandler = () => {
+        setNavOpen(!navOpen);
+    };
     
     return (
         <>
@@ -65,7 +68,7 @@ function Navigation() {
                         </Link>
 
                         {/* モバイル用 */}
-                        <button className="block lg:hidden">
+                        <button className="block lg:hidden" onClick={mobileMenuHandler}>
                         <HiOutlineBars3 className="text-4xl"/>
                         </button>
 
@@ -79,10 +82,11 @@ function Navigation() {
         <div className={navOpen ? 'py-0 block w-screen z-[900]' : 'hidden'}>
             <div className="h-screen w-screen z-[900] top-0 fixed bg-black
             bg-opacity-50
-            ">
+            " onClick={mobileMenuHandler}>
                 <div className="h-screen bg-white w-[380px] top-0 right-0 z-[900] fixed">
                     <div className="h-14 px-10 border-b flex items-center">
-                        <button className="flex items-center space-x-3">
+                        <button className="flex items-center space-x-3"
+                        onClick={mobileMenuHandler}>
                         <IoClose />
                         <span>閉じる</span>
                         </button>
@@ -91,7 +95,8 @@ function Navigation() {
                         <ul className="block mb-7">
                             {navigationMenu.map((item, index) => (
                                 <li>
-                                <Link href={item.href} className="group flex items-center py-2 duration-300 transition-all ease-out hover:text-green">
+                                <Link href={item.href} className="group flex items-center py-2 duration-300 transition-all ease-out hover:text-green"
+                                onClick={()=>setNavOpen(false)}>
                                 <span>{item.label}</span>
                                 <span className="relative left-2 duration-300
                                 transition-all ease-out opacity-0 group-hover:opacity-100:left-3
